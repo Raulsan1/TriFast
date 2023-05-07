@@ -5,3 +5,4 @@ morgan: modulo que muestra por consola los datos cuando el cliente a realizado u
 mongoose: permite a express conectarse con la base de datos mongoDB
 axios
 jsonwebtoken: modulo que generara el token para mantener la sesion
+cors: modulo que me permite gestionar el cors
