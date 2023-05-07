@@ -6,3 +6,4 @@ mongoose: permite a express conectarse con la base de datos mongoDB
 axios
 jsonwebtoken: modulo que generara el token para mantener la sesion
 cors: modulo que me permite gestionar el cors
+express-sesion: permite crear sesiones en el lado del servidor
