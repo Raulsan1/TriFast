@@ -7,3 +7,6 @@ axios
 jsonwebtoken: modulo que generara el token para mantener la sesion
 cors: modulo que me permite gestionar el cors
 express-sesion: permite crear sesiones en el lado del servidor
+bcrypt: modulo que me permite encriptar la contraseña y desencriptarla
+
+Api key shopify: 8426f0bfcbffc8ce7e611b4c5d3a710d

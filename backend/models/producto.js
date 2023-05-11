@@ -10,7 +10,7 @@ const ProductoEbaySchema = new Schema({
     localizacion_producto: {type: String},
     envio: {type: String},
     descripcion: {type: String},
-    potencial: {type: String},
+    cantidad_disponible: {type: String},
     link: {type: String},
     img: {type: String},
     tienda: {type: String},
