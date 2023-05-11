@@ -1,0 +1,17 @@
+<form #productForm="ngForm" (ngSubmit)="searchProductsByCategory(productForm)">
+  <div class="col">
+    <input type="text" name="category" id="category" placeholder="categoria" [(ngModel)]="category">
+  </div>
+  <div class="col">
+    <input name="" id="" class="btn btn-primary" type="button" value="buscar"
+      (click)="searchProductsByCategory (productForm)">
+  </div>
+</form>
+
+
+
+<div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="alert">
+  Escribe una categoria
+</div>
+
+
