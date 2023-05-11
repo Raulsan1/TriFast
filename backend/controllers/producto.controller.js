@@ -70,7 +70,8 @@ actualizarProducto = async () =>{
     console.log("Actualizando producto "+producto.id_producto);
     
 }
-
-setInterval(actualizarProducto, 60*60);
 */
+//setInterval(actualizarProducto, 24*60*60);
+//setInterval(actualizarProducto, 60*60);
+
 module.exports = productoController;

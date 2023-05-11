@@ -22,6 +22,7 @@ app.use('/api/productos', require('./routes/productos.routes'));
 app.use('/api/productos/:producto', require('./routes/productos.routes'));
 app.use('/api', require('./routes/usuarios.routes'));
 app.use('/api/seguimientos', require('./routes/seguimientos.routes'));
+app.use('/api/historial', require('./routes/historiales.router'));
 
 // Inicia el servidor
 app.listen(app.get('port'), () =>{

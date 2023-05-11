@@ -9,7 +9,7 @@ historialController.getHistorial = async (req, res) => {
     
     const historial = await Historial.find();
     res.json(historial);
-    
+
 }
 historialController.getHistorialProducto = async (req, res) => {
 
@@ -40,7 +40,7 @@ actualizarProducto = async (req, res) =>{
     //Datos para la conexion con la api de ebay en rapidAPI
     const options = {
         method: 'GET',
-        url: 'https://ebay-data-scraper.p.rapidapi.com/products/'+385196649406,
+        url: 'https://ebay-data-scraper.p.rapidapi.com/products/'+producto.id_producto,
         params: {
             country: ''
         },

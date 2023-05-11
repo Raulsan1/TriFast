@@ -38,7 +38,7 @@ async function productosEbay() {
                 id_producto: producto.product_id,
                 nombre: producto.name,
                 condicion: producto.condition,
-                price: producto.price,
+                precio: producto.price,
                 descuento: producto.discount,
                 localizacion_producto: producto.product_location,
                 envio: producto.logistics_cost,
