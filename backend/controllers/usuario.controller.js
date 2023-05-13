@@ -8,8 +8,7 @@ usuarioController.login = async (req, res) => {
     console.log(req.body);
 
     // Buscar el usuario en la base de datos por correo electrónico
-    const usuario = await Usuario.findOne({ correo_electronico: req.body.correo_electronico });
-    console.log(usuario.password);
+    const usuario = await Usuario.findOne({ email: req.body.email });
 
     if (!usuario) {
         return res.status(401).json({ mensaje: 'Correo electrónico o contraseña incorrecta.' });
@@ -22,31 +21,38 @@ usuarioController.login = async (req, res) => {
         return res.status(401).json({ mensaje: 'Correo electrónico o contraseña incorrecta.' });
     }
 
-    jwt.sign({user: req.body}, 'secretKey',{expiresIn: '86400s'}, (err, token) => {
-        res.json(token);
+    jwt.sign({_id: usuario._id}, 'secretKey',{expiresIn: '86400s'}, (err, token) => {
+        res.status(200).json(token);
     });
 }
 
-usuarioController.register = async (req, res) => {
+usuarioController.signup = async (req, res) => {
 
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-    const nuevoUsuario = new Usuario({
-        nombre: "raul",
-        correo_electronico: "raul@gmail.com",
-        password: hashedPassword,
-        tipo: "admin",
-        productos_seguidos: []
-    });
+    const usuario = await Usuario.findOne({ email: req.body.email });
 
-    try {
-        const usuarioGuardado = await nuevoUsuario.save();
-        res.status(201).json(usuarioGuardado);
-    } catch (error) {
-        res.status(400).json({ mensaje: error.message });
-    }
+    if(usuario == null){
+        const nuevoUsuario = new Usuario({
+            nombre: req.body.nombre,
+            email: req.body.email,
+            password: hashedPassword,
+            tipo: "normal",
+            productos_seguidos: []
+        });
     
+        try {
+            const usuarioGuardado = await nuevoUsuario.save();
+            jwt.sign({_id: usuarioGuardado._id}, 'secretKey',{expiresIn: '86400s'}, (err, token) => {
+                res.status(200).json(token);
+            });
+        } catch (error) {
+            res.status(400).json({ mensaje: error.message });
+        }
+    }else{
+        res.status(400).json({ mensaje: "Ya existe un usuario con el correo introducido" });
+    }
 }
 
 module.exports = usuarioController;

@@ -11,20 +11,26 @@ seguimientoController.getSeguimientos = async (req, res) => {
                 mensaje: "permiso para mirar los seguimientos",
                 authData: authData
             })
+        }else{
+            res.status(400).send("Token invalido");
         }
     });
 }
 
 // Authorization: Bearer <token>
-function verifyToken (req, res, next) {
-    const bearerHeader = req.headers['authorization'];
-    if(typeof bearerHeader !== 'undefined'){
-        const bearerToken = bearerHeader.split(" ")[1];
-        req.token = bearerToken;
-        next;
-    }else{
-        res.sendStatus(403);
+function verifyToken (req, res) {
+
+    if(!req.headers.authorization){
+        return res.status(401).send("No autorizado");
     }
+
+    const bearerToken = req.headers.authorization.split(" ")[1];
+
+    if(bearerToken === null){
+        return res.status(401).send("No autorizado");
+    }
+
+    req.token = bearerToken;
 }
 
 module.exports = seguimientoController;

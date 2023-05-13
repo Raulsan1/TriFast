@@ -1,3 +1,21 @@
-.categoria{
-    background-color: lightblue;
+form{
+    display: flex;
+}
+.form-inline *{
+    margin-right: 5px;
+    margin-left: 5px;
+}
+nav{
+    padding-left: 10vw;
+    padding-right: 10vw;
+    display: flex;
+    justify-content: space-between;
+}
+.container{
+    margin-top: 5em;
+}
+@media (max-width:600px){
+    nav{
+        padding: 0;
+    }
 }
