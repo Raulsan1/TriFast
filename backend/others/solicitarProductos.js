@@ -17,7 +17,7 @@ async function productosEbay() {
         url: 'https://ebay-data-scraper.p.rapidapi.com/products',
         params: {
             page_number: '1',
-            product_name: 'console',
+            product_name: 'television',
             country: ''
         },
         headers: {
@@ -47,7 +47,7 @@ async function productosEbay() {
                 link: producto.link,
                 img: producto.thumbnail,
                 tienda: "Ebay",
-                categoria: "consolas"
+                categoria: "Televisiones"
             });
 
             await nuevoProducto.save();

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private location: Location) { }
   
   usuario = {
     email: "",
@@ -22,7 +22,7 @@ export class LoginComponent {
         res => {
           console.log(res);
           localStorage.setItem('token', res);
-          this.router.navigate(['principal']);
+          this.location.back();
         },
         err => {
           console.log(err);

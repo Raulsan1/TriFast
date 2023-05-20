@@ -7,14 +7,9 @@ import { Product } from '../models/product';
 })
 export class ProductService {
 
-  selectedProduct: Product;
-  products: Product[];
   readonly URL_API = 'http://localhost:3000/api/productos';
 
   constructor(private http: HttpClient) {
-
-    this.selectedProduct = new Product();
-    this.products = [];
 
    }
 
@@ -24,5 +19,17 @@ export class ProductService {
 
   getProductsByCategory (category: string){
     return this.http.get(this.URL_API+'/categoria/'+category);
+  }
+
+  getProductsByName (name: string){
+    return this.http.get(this.URL_API+'/nombre/'+name);
+  }
+
+  getProductById (id: string){
+    return this.http.get(this.URL_API+'/'+id);
+  }
+
+  getProductsByDiscount (){
+    return this.http.get('http://localhost:3000/api/descuentos');
   }
 }

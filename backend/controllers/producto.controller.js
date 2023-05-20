@@ -11,16 +11,25 @@ productoController.getProductos = async (req, res) =>{
 
 //recupero el producto indicado por parametro
 productoController.getProducto = async (req, res) => {
-    const producto = await Producto.findById(req.params.id);
-    res.json(producto);
+    const producto = await Producto.find({id_producto: req.params.id});
+    res.json(producto[0]);
 }
+
 productoController.getProductoCategoria = async (req, res) => {
-    const producto = await Producto.find({categoria: req.params.categoria});
-    console.log(producto);
+    const regex = new RegExp(req.params.categoria, 'i');
+    const producto = await Producto.find({categoria: regex});
     res.json(producto);
 }
 
+productoController.getProductoNombre = async (req, res) => {
+    const regex = new RegExp(req.params.nombre, 'i');
+    const producto = await Producto.find({nombre: regex});
+    res.json(producto);
+}
 
-let iteradorProductos = 0;
+productoController.getProductoDescuento = async (req, res) => {
+    const productos = await Producto.find({ descuento: { $nin: ["", "uninformed"] } });
+    res.json(productos);
+}
 
 module.exports = productoController;

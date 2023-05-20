@@ -1,0 +1,42 @@
+<div class="card card-body mt-5">
+  <div class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
+    <div class="mr-2 mb-3 mb-lg-0">
+
+      <img src="{{product.img}}" width="50%" height="50%" alt="">
+
+    </div>
+
+    <div class="media-body">
+      <h6 class="media-title font-weight-semibold">
+        <strong>{{product.nombre}}</strong>
+        <h3 class="mb-0 font-weight-semibold mt-3">{{product.precio}}<span *ngIf="product.descuento != '' && product.descuento != 'uninformed'">, {{product.descuento}}</span></h3>
+      </h6>
+
+      <div class="card card-body mt-4 mb-5 card2" style="background-color: lightgrey;">
+          <h2>Detalles</h2>
+          <ul class="list-inline list-inline-dotted mb-3 mb-lg-2">
+            <li *ngIf="product.id_producto != ''"><strong>ID</strong>: {{product.id_producto}}</li>
+            <li *ngIf="product.condicion != ''"><strong>Condición</strong>: {{product.condicion}}</li>
+            <li *ngIf="product.precio != ''"><strong>Precio</strong>: {{product.precio}}</li>
+            <li *ngIf="product.descuento != '' && product.descuento != 'uninformed'"><strong>Descuento</strong>: {{product.descuento}}</li>
+            <li *ngIf="product.localizacion_producto != ''"><strong>Localización del producto</strong>: {{product.localizacion_producto}}</li>
+            <li *ngIf="product.envio != ''"><strong>Envio</strong>: {{product.envio}}</li>
+            <li *ngIf="product.descripcion != ''"><strong>Descripción</strong>: {{product.descripcion}}</li>
+            <li *ngIf="product.cantidad_disponible != '' && product.cantidad_disponible != 'uninformed'"><strong>Cantidad disponible</strong>: {{product.cantidad_disponible}}</li>
+            <li *ngIf="product.tienda != ''"><strong>Tienda</strong>: {{product.tienda}}</li>
+            <li *ngIf="product.link != ''"><strong>Link</strong>: <a href="{{product.link}}">Ver en {{product.tienda}}</a></li>
+            <li class="list-inline-item"><strong>Categoria</strong>: <a href="producto/categoria/{{product.categoria}}"class="text-muted" data-abc="true">{{product.categoria}}</a></li>
+          </ul>
+      </div>
+
+
+
+
+    </div>
+
+    <div class=" ml-lg-3 text-center">
+      <button type="button" class="btn btn-success text-white" (click)="followProduct()"><i class="icon-cart-add mr-2"></i>Realizar
+        Seguimiento</button>
+    </div>
+  </div>
+</div>

@@ -11,11 +11,15 @@ nav{
     display: flex;
     justify-content: space-between;
 }
-.container{
-    margin-top: 5em;
-}
 @media (max-width:600px){
     nav{
         padding: 0;
     }
+}
+
+footer {
+    margin-top: 5%;
+    position: static;
+    top: 100%;
+    width: 100%;
 }

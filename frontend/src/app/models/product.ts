@@ -6,6 +6,7 @@ export class Product {
     precio: string = '';
     descuento: string = '';
     localizacion_producto: string = '';
+    cantidad_disponible: string = '';
     envio: string = '';
     descripcion: string = '';
     potencial: string = '';

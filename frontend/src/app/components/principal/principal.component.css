@@ -1,3 +1,8 @@
-.container{
-    margin-top: 2em;
+.categories{
+    background-color: rgb(49, 158, 55);
+}
+a{
+    text-align: center;
+    text-decoration: none;
+    color: black;
 }
