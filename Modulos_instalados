@@ -8,3 +8,4 @@ jsonwebtoken: modulo que generara el token para mantener la sesion
 cors: modulo que me permite gestionar el cors
 express-sesion: permite crear sesiones en el lado del servidor
 bcrypt: modulo que me permite encriptar la contraseña y desencriptarla
+nodemailer: modulo que me permite enviar notificaciones a los email de los usuarios registrados
