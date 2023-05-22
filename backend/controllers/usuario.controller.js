@@ -1,11 +1,20 @@
 const Usuario = require('../models/usuario'); 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+
+// Configuracion del transporte de correo
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'trifastcomparador@gmail.com', 
+    pass: 'cygdczmgbioupdzs'
+  }
+});
 
 const usuarioController = {}
 
 usuarioController.login = async (req, res) => {
-    console.log(req.body);
 
     // Buscar el usuario en la base de datos por correo electrónico
     const usuario = await Usuario.findOne({ email: req.body.email });
@@ -38,13 +47,18 @@ usuarioController.signup = async (req, res) => {
             nombre: req.body.nombre,
             email: req.body.email,
             password: hashedPassword,
-            tipo: "normal",
-            productos_seguidos: []
+            tipo: "normal"
         });
     
         try {
             const usuarioGuardado = await nuevoUsuario.save();
             jwt.sign({_id: usuarioGuardado._id}, 'secretKey',{expiresIn: '86400s'}, (err, token) => {
+                // Después de que un usuario se registre correctamente
+                const correoDestino = usuarioGuardado.email;
+                const asunto = 'Bienvenido a TriFast';
+                const contenido = '¡Gracias por registrarte en nuestra página web!';
+
+                enviarNotificacion(correoDestino, asunto, contenido);
                 res.status(200).json(token);
             });
         } catch (error) {
@@ -53,6 +67,23 @@ usuarioController.signup = async (req, res) => {
     }else{
         res.status(400).json({ mensaje: "Ya existe un usuario con el correo introducido" });
     }
+}
+
+function enviarNotificacion(correoDestino, asunto, contenido) {
+    const mailOptions = {
+      from: 'trifastcomparador@gmail.com',
+      to: correoDestino,
+      subject: asunto,
+      text: contenido
+    };
+  
+    transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Correo enviado: ' + info.response);
+      }
+    });
 }
 
 module.exports = usuarioController;

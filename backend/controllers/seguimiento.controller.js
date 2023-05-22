@@ -42,12 +42,13 @@ seguimientoController.crearSeguimiento = async (req, res) => {
     verifyToken(req, res);
     jwt.verify(req.token, 'secretKey', async (error, authData) => {
         if(!error){
-            const seguimiento = await Seguimiento.findOne({id_producto: req.body.id_producto});
-
-            if(seguimiento != null){
+            console.log(authData);
+            const seguimientos = await Seguimiento.find({id_usuario: authData._id});
+            
+            if(seguimientos.some(registro => registro.id_producto === req.body.id_producto)){
                 res.status(400).json({
                     mensaje: "Ya estas siguiendo a este producto.",
-                    bool: true
+                    bool: false
                 })
             }else{
                 const nuevoSeguimiento = new Seguimiento({
@@ -59,10 +60,11 @@ seguimientoController.crearSeguimiento = async (req, res) => {
 
                 res.status(200).json({
                     seguimiento: seguimientoGuardado,
-                    mensaje: "Seguimiento guardado exitosamente"
+                    mensaje: "Seguimiento guardado exitosamente",
+                    bool: true
                 })
             }
-
+            
 
         }else{
             res.status(400).send("Token invalido");

@@ -11,6 +11,9 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private location: Location) { }
   
+  showAlert: boolean = false;
+  message: string = '';
+
   usuario = {
     email: "",
     password: ""
@@ -26,6 +29,13 @@ export class LoginComponent {
         },
         err => {
           console.log(err);
+          this.showAlert = true;
+          this.message = err.error.mensaje;
+          console.log(this.message);
+          setTimeout(() => {
+            this.showAlert = false;
+            this.message = '';
+          },2000);
         }
       );
   }

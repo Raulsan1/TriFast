@@ -36,8 +36,6 @@ export class PrincipalComponent {
             index === self.findIndex((elem) => elem.toLowerCase() === lowercaseValue)
           );
         });
-
-        console.log(this.categories);
     });
   }
 

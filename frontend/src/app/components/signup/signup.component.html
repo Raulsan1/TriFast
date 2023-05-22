@@ -1,3 +1,6 @@
+<div class="alert alert-danger" *ngIf="showAlert">
+  {{message}}
+</div>
 <div class="mask d-flex align-items-center h-100 gradient-custom-3">
   <div class="container h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -15,7 +18,7 @@
 
               <div class="form-outline mb-4">
                 <input type="email" id="form3Example3cg" name="email" [(ngModel)]="usuario.email"
-                  class="form-control form-control-lg" />
+                  class="form-control form-control-lg" placeholder="example@gmail.com" pattern="^[a-zA-Z0-9_.+-]+@gmail\.com$" required/>
                 <label class="form-label" for="form3Example3cg">Email</label>
               </div>
 

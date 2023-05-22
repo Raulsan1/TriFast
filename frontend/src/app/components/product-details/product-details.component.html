@@ -1,3 +1,9 @@
+<div class="alert alert-success" *ngIf="showAlert">
+  Producto seguido correctamente
+</div>
+<div class="alert alert-danger" *ngIf="showAlert2">
+  El producto no se ha podido añadir a tus seguimientos
+</div>
 <div class="card card-body mt-5">
   <div class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
     <div class="mr-2 mb-3 mb-lg-0">
@@ -27,16 +33,13 @@
             <li *ngIf="product.link != ''"><strong>Link</strong>: <a href="{{product.link}}">Ver en {{product.tienda}}</a></li>
             <li class="list-inline-item"><strong>Categoria</strong>: <a href="producto/categoria/{{product.categoria}}"class="text-muted" data-abc="true">{{product.categoria}}</a></li>
           </ul>
+          <div class=" ml-lg-3 text-center">
+            <button type="button" class="btn btn-success text-white" (click)="followProduct()"><i class="icon-cart-add mr-2"></i>Realizar
+              Seguimiento</button>
+          </div>
       </div>
 
-
-
-
-    </div>
-
-    <div class=" ml-lg-3 text-center">
-      <button type="button" class="btn btn-success text-white" (click)="followProduct()"><i class="icon-cart-add mr-2"></i>Realizar
-        Seguimiento</button>
+      <canvas #lineChartCanvas width="200" height="200"></canvas>
     </div>
   </div>
 </div>

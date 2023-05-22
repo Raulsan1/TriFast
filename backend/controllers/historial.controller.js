@@ -1,7 +1,19 @@
 const Historial = require('../models/historial'); 
 const Producto = require('../models/producto'); 
+const Seguimiento = require('../models/seguimiento');
+const Usuario = require('../models/usuario');
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+
+// Configuracion del transporte de correo
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'trifastcomparador@gmail.com', 
+    pass: 'cygdczmgbioupdzs'
+  }
+});
 
 const historialController = {}
 
@@ -19,13 +31,13 @@ historialController.getHistorialProducto = async (req, res) => {
 }
 
 
-let iteradorProductos = 0;
+let iteradorProductos = 140;
 
 //funcion que se ejecuta cada cierto tiempo para comprobar los precios de los productos
 
 actualizarProducto = async (req, res) =>{
 
-    const numProductos = await Producto.countDocuments();   //numero de productos en la base de datos
+    const numProductos = await Producto.countDocuments({tienda: 'Ebay'});   //numero de productos en la base de datos
     let producto = new Producto();
 
     if(iteradorProductos < numProductos) {
@@ -58,7 +70,7 @@ actualizarProducto = async (req, res) =>{
             console.log("Actualizando el precio de "+producto.precio+" a "+productoApi.data.price);
             producto.precio = productoApi.data.price;
             await producto.save();
-
+            recuperarSeguimientos(producto.id_producto);
             historial = new Historial({
                 id_producto: producto.id_producto,
                 precio: producto.precio,
@@ -67,20 +79,47 @@ actualizarProducto = async (req, res) =>{
 
             await historial.save();
             console.log(historial);
+            console.log("Actualizado producto "+producto.id_producto);
         }else{
-            console.log("El id producto no es el mismo");
+            console.log("El id producto no es el mismo o el precio no ha cambiado");
         }
 
     } catch (error) {
         console.error(error);
     }
-
-    console.log("Actualizando producto "+producto.id_producto);
-    
 }
-
 //setInterval(actualizarProducto, 24*60*60);
 //setInterval(actualizarProducto, 60*60);
 
+async function recuperarSeguimientos (id_producto){
+    const seguimientos = await Seguimiento.find({id_producto: id_producto});
+    console.log(seguimientos);
+    const email = [];
+    seguimientos.forEach( async registro => {
+        const usuario = await Usuario.find({_id: registro.id_usuario})
+        console.log(usuario[0].email);
+        const correoDestino = usuario[0].email;
+        const asunto = 'Seguimiento del producto '+id_producto;
+        const contenido = '¡Un producto que estabas siguiendo ha bajado de precio!. ¡Consulta el nuevo precio en nuestra página web!';
+        enviarNotificacion(correoDestino, asunto, contenido);
+    });
+}
+
+function enviarNotificacion(correoDestino, asunto, contenido) {
+    const mailOptions = {
+      from: 'trifastcomparador@gmail.com',
+      to: correoDestino,
+      subject: asunto,
+      text: contenido
+    };
+  
+    transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Correo enviado: ' + info.response);
+      }
+    });
+}
 
 module.exports = historialController;

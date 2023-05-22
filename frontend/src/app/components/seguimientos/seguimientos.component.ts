@@ -16,6 +16,7 @@ export class SeguimientosComponent implements OnInit{
   seguimientos: Seguimiento [] = [];
   product: Product = new Product();
   products: Product[] = [];
+  showAlert: boolean = false;
 
   constructor (private seguimientosService: SeguimientosService, private router: Router, private productService: ProductService) { }
 
@@ -40,6 +41,10 @@ export class SeguimientosComponent implements OnInit{
     this.seguimientosService.deleteFollow(id_producto).subscribe(res => {
       let mensaje = res as any;
       if(mensaje.bool){
+        this.showAlert = true;
+        setTimeout(() => {
+          this.showAlert = false;
+        },2000);
         this.ngOnInit();
       }
     });

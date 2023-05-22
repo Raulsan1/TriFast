@@ -11,7 +11,7 @@ export class HistorialService {
   readonly URL_API = 'http://localhost:3000/api/historial';
 
   getProductHistorial (id_producto: string) {
-    this.http.get(this.URL_API+'/producto'+id_producto);
+    return this.http.get(this.URL_API+'/producto/'+id_producto);
   }
 
 }

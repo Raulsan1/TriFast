@@ -65,13 +65,13 @@ async function productosAmazon(){
 
     const options = {
         method: 'GET',
-        url: 'https://amazon_data_extractor.p.rapidapi.com/search/consoles',
+        url: 'https://amazon-data-scraper124.p.rapidapi.com/search/movies',
         params: {
-          api_key: '8045a19e2deb0a201d022a330d701576'
+          api_key: '3ba0325127417000e0b265200ab7ed34'
         },
         headers: {
           'X-RapidAPI-Key': '570a3c45a3mshbd067cf0a53628bp1759bajsn58c188faeb8a',
-          'X-RapidAPI-Host': 'amazon_data_extractor.p.rapidapi.com'
+          'X-RapidAPI-Host': 'amazon-data-scraper124.p.rapidapi.com'
         }
       };
 
@@ -79,7 +79,7 @@ async function productosAmazon(){
         
     try {
         respuesta = await axios.request(options);
-        console.log(respuesta.data.results.length);
+        console.log(respuesta.data.results);
 
     } catch (error) {
         console.error(error);
@@ -134,7 +134,7 @@ async function productosAmazon(){
                     link: url,
                     img: img,
                     tienda: "Amazon",
-                    categoria: "Consolas"
+                    categoria: "Peliculas"
     
                 });
                 console.log(nuevoProducto);
