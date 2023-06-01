@@ -68,9 +68,11 @@ actualizarProducto = async (req, res) =>{
         //cambio el precio en caso de que sea distinto y guardo cambios en la base de datos
         if (productoApi.data.price != producto.precio && productoApi.data.product_id == producto.id_producto){
             console.log("Actualizando el precio de "+producto.precio+" a "+productoApi.data.price);
+            if(productoApi.data.price < producto.precio){
+                recuperarSeguimientos(producto.id_producto);
+            }
             producto.precio = productoApi.data.price;
             await producto.save();
-            recuperarSeguimientos(producto.id_producto);
             historial = new Historial({
                 id_producto: producto.id_producto,
                 precio: producto.precio,
