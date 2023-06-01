@@ -26,7 +26,8 @@ export class ProductDetailsComponent implements OnInit {
   showAlert: boolean = false;
   showAlert2: boolean = false;
 
-  constructor (private productService: ProductService, private route: ActivatedRoute, private authService: AuthService, private router: Router, private seguimientoService: SeguimientosService, private historialService: HistorialService) { }
+  constructor (private productService: ProductService, private route: ActivatedRoute, private authService: AuthService
+    , private router: Router, private seguimientoService: SeguimientosService, private historialService: HistorialService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -134,5 +135,4 @@ export class ProductDetailsComponent implements OnInit {
       });
     }
   }
-
 }
